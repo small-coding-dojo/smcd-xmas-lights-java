@@ -1,4 +1,4 @@
-package com.github.small.coding.dojo;
+package com.github.smallCodingDojo;
 
 /**
  * Hello world!
