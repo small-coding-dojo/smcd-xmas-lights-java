@@ -1,3 +1,6 @@
+## Christmas Light Kata
+cf. https://kata-log.rocks/christmas-lights-kata
+
 ## run everything from the command line
 
 ### get a junit and hamcrest library
