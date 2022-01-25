@@ -1,12 +1,14 @@
 package com.github.smallCodingDojo;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
+
 public class LightMatrixTest 
 {
+
 
     private LightMatrix testee;
     @Before
@@ -18,17 +20,6 @@ public class LightMatrixTest
     public void shouldActiveLightsReturnZero()
     {        
         int expectedLights = 0;
-        int actualLights = testee.getActiveLights();
-
-        assertEquals(expectedLights, actualLights);
-    }
-
-    @Test
-    public void turningOnOneLightReturnsOneActiveLight()
-    {        
-        testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
-
-        int expectedLights = 1;
         int actualLights = testee.getActiveLights();
 
         assertEquals(expectedLights, actualLights);
@@ -117,19 +108,9 @@ public class LightMatrixTest
     }
 
     @Test
-    public void testTurningOnIntersectingSectionsOfLightsResultsIn4ActiveLightsAndTurningOneOff () {
-        testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
-
-        int expectedLights = 4;
-        int actualLights = testee.getActiveLights();
-
-        assertEquals(expectedLights, actualLights);
-
-        testee.turnOff(new LightMatrix.Area(0, 0, 0, 0));
-
-        assertEquals(3, testee.getActiveLights());
-
+    public void testTurningOn1000x1000LightsResultsInOneMillion() {
+        testee.turnOn(new LightMatrix.Area(0,0,999, 999));
+        assertEquals(1_000_000, testee.getActiveLights());
     }
-
 
 }
