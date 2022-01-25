@@ -16,6 +16,7 @@ public class LightMatrixDDTTest {
     private final LightMatrix.Area area;
     private final int expectedLightCount;
 
+
     @Parameterized.Parameters(name="{2}")
     public static Collection<Object[]> dataProvider(){
         return Arrays.asList(new Object[][]{
