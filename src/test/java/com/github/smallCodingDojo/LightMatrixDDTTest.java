@@ -1,40 +1,35 @@
 package com.github.smallCodingDojo;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(Parameterized.class)
+
 public class LightMatrixDDTTest {
 
-    private final LightMatrix testee;
-    private final LightMatrix.Area area;
-    private final int expectedLightCount;
+    private LightMatrix testee;
 
-
-    @Parameterized.Parameters(name="{2}")
-    public static Collection<Object[]> dataProvider(){
-        return Arrays.asList(new Object[][]{
-                {new LightMatrix.Area(0,0,0,0), 1, "From 0,0 to 0,0 => One Light"},
-                {new LightMatrix.Area(0,0,999,999), 1_000_000, "From 0,0 to 999,999 => One Million"}
-        });
-    }
-
-    public LightMatrixDDTTest (LightMatrix.Area area, int expectedLightCount, String unusedButNecessaryForJUnit4) {
+    @BeforeEach
+    public void initTestee () {
         testee = new LightMatrix();
-        this.area = area;
-        this.expectedLightCount = expectedLightCount;
     }
 
-    @Test
-    public void testTurningOnAreas() {
+    @ParameterizedTest
+    @MethodSource("provideTestAreas")
+    public void testTurningOnAreas(LightMatrix.Area area, int expectedLightCount) {
         testee.turnOn(area);
         assertEquals(expectedLightCount, testee.getActiveLights());
+    }
+
+    private static Stream<Arguments> provideTestAreas() {
+        return Stream.of (
+                Arguments.of(new LightMatrix.Area(0,0,0,0), 1)
+        );
     }
 
 
