@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,17 +20,18 @@ public class LightMatrixDDTTest {
         testee = new LightMatrix();
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name="{2}")
     @MethodSource("provideTestAreas")
-    public void testTurningOnAreas(LightMatrix.Area area, int expectedLightCount) {
+    public void testTurningOnAreas(LightMatrix.Area area, int expectedLightCount, String theMessage) {
         testee.turnOn(area);
-        assertEquals(expectedLightCount, testee.getActiveLights());
+        assertEquals(expectedLightCount, testee.getActiveLights(), theMessage);
     }
 
     private static Stream<Arguments> provideTestAreas() {
         return Stream.of (
-                Arguments.of(new LightMatrix.Area(0,0,0,0), 1)
-        );
+                Arguments.of(new LightMatrix.Area(0,0,0,0), 1, "From 0,0 to 0,0 => One Light"),
+                Arguments.of(new LightMatrix.Area(0,0,999,999), 1_000_000, "From 0,0 to 999,999 => One Million")
+         );
     }
 
 
