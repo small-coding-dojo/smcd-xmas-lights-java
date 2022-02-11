@@ -1,2 +1,2 @@
 - neuen Dataprovider testen
-- test if mob next -r checks in on main branch
+- test if mob next -r checks in on main branch (even in version 2.3.0)
