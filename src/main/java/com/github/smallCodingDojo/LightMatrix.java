@@ -39,6 +39,14 @@ public class LightMatrix
         }
     }
 
+    public void toggle(Area area) {
+        for(int x = area.getX1(); x<= area.getX2(); x++) {
+            for(int y = area.getY1(); y<= area.getY2(); y++) {
+                lights[x][y] = ! lights[x][y];
+            }
+        }
+    }
+
     static class Area {
         private final int x1;
         private final int y1;

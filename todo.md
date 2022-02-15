@@ -1,4 +1,3 @@
-- neuen Dataprovider testen
-- test if mob next -r checks in on main branch (even in version 2.3.0)
-- try being second in line
-- debugging
+- Find out whether super() is called implicitly. And when.
+- implement examples from website: https://kata-log.rocks/christmas-lights-kata
+- 

@@ -112,4 +112,17 @@ public class LightMatrixTest
         assertEquals(1_000_000, testee.getActiveLights());
     }
 
+    @Test
+    public void testTurningOn5LightsThenToggleResultsInBLABLABLUBB() {
+        testee.turnOn(new LightMatrix.Area(0,0,0, 0));
+        testee.turnOn(new LightMatrix.Area(2,0,2, 0));
+        testee.turnOn(new LightMatrix.Area(999,0,999, 0));
+
+        assertEquals(3, testee.getActiveLights());
+
+        testee.toggle(new LightMatrix.Area(0,0,999, 0));
+
+        assertEquals(997, testee.getActiveLights());
+    }
+
 }
