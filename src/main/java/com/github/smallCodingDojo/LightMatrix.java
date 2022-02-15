@@ -3,14 +3,7 @@ package com.github.smallCodingDojo;
 
 public class LightMatrix
 {
-    public static final boolean LIGHT_ON = true;
-    public static final boolean LIGHT_OFF = false;
-    private boolean[][] lights = initializeMatrix();
-
-    private static boolean[][] initializeMatrix() {
-        boolean[][] result = new boolean[1000][1000];
-        return result;
-    }
+    private final boolean[][] lights = new boolean[1000][1000];
 
     public int getActiveLights() {
         int activeLightCount = 0;
@@ -22,27 +15,22 @@ public class LightMatrix
         return activeLightCount;
     }
 
-    // TODO: Consider using an iterator on Area / the visitor pattern / stream processing
     public void turnOn(Area area) {
-        turn(area, LIGHT_ON);
+        applyCommandToArea(new Lighter(), area);
     }
 
     public void turnOff(Area area) {
-        turn(area, LIGHT_OFF);
-    }
-
-    private void turn(Area area, boolean state) {
-        for(int x = area.getX1(); x<= area.getX2(); x++) {
-            for(int y = area.getY1(); y<= area.getY2(); y++) {
-                lights[x][y] = state;
-            }
-        }
+        applyCommandToArea(new Extinguisher(), area);
     }
 
     public void toggle(Area area) {
+        applyCommandToArea(new LightToggler(), area);
+    }
+
+    private void applyCommandToArea(LightStateChanger theCommand, Area area) {
         for(int x = area.getX1(); x<= area.getX2(); x++) {
             for(int y = area.getY1(); y<= area.getY2(); y++) {
-                lights[x][y] = ! lights[x][y];
+                lights[x][y] = theCommand.execute( lights[x][y]);
             }
         }
     }
@@ -81,4 +69,26 @@ public class LightMatrix
             return y2;
         }
     }
+
+    private static class LightToggler implements LightStateChanger {
+        @Override
+        public boolean execute(boolean lightState) {
+            return !lightState;
+        }
+    }
+
+    private static class Lighter implements LightStateChanger {
+        @Override
+        public boolean execute(boolean lightState) {
+            return true;
+        }
+    }
+
+    private static class Extinguisher implements LightStateChanger {
+        @Override
+        public boolean execute(boolean lightState) {
+            return false;
+        }
+    }
+
 }
