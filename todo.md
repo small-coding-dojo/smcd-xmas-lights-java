@@ -1,3 +1,3 @@
-- Find out whether super() is called implicitly. And when.
-- implement examples from website: https://kata-log.rocks/christmas-lights-kata
-- 
+- fix non-compiling test => move it via non-breaking refactorings to the non-parameterized test class
+- Use command / Task with result for getting the light count
+- Write a parameterized test that can be used for fuzzing as well

@@ -113,16 +113,37 @@ public class LightMatrixTest
     }
 
     @Test
-    public void testTurningOn5LightsThenToggleResultsInBLABLABLUBB() {
+    public void testTurningOn3LightsThenToggle1000ResultsIn997ActiveLights() {
         testee.turnOn(new LightMatrix.Area(0,0,0, 0));
         testee.turnOn(new LightMatrix.Area(2,0,2, 0));
         testee.turnOn(new LightMatrix.Area(999,0,999, 0));
 
-        assertEquals(3, testee.getActiveLights());
+        assertEquals(3, testee.getActiveLights(), "precondition failed");
 
         testee.toggle(new LightMatrix.Area(0,0,999, 0));
 
         assertEquals(997, testee.getActiveLights());
     }
+
+    @Test
+    public void testTurningOnSomeLightsThenToggleNotAllLightsResultsInPlausibleNumberOfLightsTurnedOn() {
+        // Turn on three lights in row zero
+        testee.turnOn(new LightMatrix.Area(0,0,0, 0));
+        testee.turnOn(new LightMatrix.Area(2,0,2, 0));
+        testee.turnOn(new LightMatrix.Area(999,0,999, 0));
+
+        // Turn on one light in row two
+        testee.turnOn(new LightMatrix.Area(2,998,2, 998));
+
+        // Check that four lights turned on
+        assertEquals(4, testee.getActiveLights(), "precondition failed");
+
+        // Toggle 1000 lights in row 0
+        testee.toggle(new LightMatrix.Area(0,0,999, 0));
+
+        // Check (1000 - 3) + 1 = 998 lights are turned on
+        assertEquals(998, testee.getActiveLights());
+    }
+
 
 }
