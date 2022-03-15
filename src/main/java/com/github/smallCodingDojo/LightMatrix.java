@@ -35,6 +35,10 @@ public class LightMatrix
         }
     }
 
+    public boolean isLit(int x, int y) {
+        return lights[x][y];
+    }
+
     static class Area {
         private final int x1;
         private final int y1;
