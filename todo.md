@@ -7,6 +7,7 @@
   - Replace for loop by assertArrayEquals?
   - board for next time: https://miro.com/app/board/uXjVOFZFerI=/
   - raise vote about continuing/abortion/pausing of kata
+  - change
 
 - FEEDBACK:
   - good, little bit more prep wished
