@@ -3,13 +3,13 @@ package com.github.smallCodingDojo;
 
 public class LightMatrix
 {
-    private final boolean[][] lights = new boolean[1000][1000];
+    private final int[][] brightnesses = new int[1000][1000];
 
     public int getActiveLights() {
         int activeLightCount = 0;
         for (int x = 0; x< 1000; x++) {
             for (int y = 0; y< 1000; y++) {
-                activeLightCount += lights[x][y] ? 1 : 0;
+                activeLightCount += isLit(x,y) ? 1 : 0;
             }
         }
         return activeLightCount;
@@ -30,13 +30,13 @@ public class LightMatrix
     private void applyCommandToArea(LightStateChanger theCommand, Area area) {
         for(int x = area.getX1(); x<= area.getX2(); x++) {
             for(int y = area.getY1(); y<= area.getY2(); y++) {
-                lights[x][y] = theCommand.execute( lights[x][y]);
+                brightnesses[x][y] = theCommand.execute(isLit(x,y) ) ? 1 : 0;
             }
         }
     }
 
     public boolean isLit(int x, int y) {
-        return lights[x][y];
+        return brightnesses[x][y] >0 ;
     }
 
     static class Area {
