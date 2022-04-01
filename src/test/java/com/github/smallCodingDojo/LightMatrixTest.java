@@ -8,8 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LightMatrixTest
 {
@@ -131,22 +130,39 @@ public class LightMatrixTest
         assertEquals(expectedLightCount, testee.getActiveLights(), "Unlit matrix, turn off from 499,499 to 500,500 => 0");
     }
 
-//    @Test
-//    void testOverlappingLightToggling() {
-//        LightMatrix.Area area = new LightMatrix.Area(0,0,1,1);
-//
-//        testee.toggle(area);
-//
-//        testee.toggle(new LightMatrix.Area(0,1,1,2));
-//
-//        // asummed lights
-//        // 000   &  110  => 101
-//        // 000   &  110  => 101
-//
-//        testee.toggle(new LightMatrix.Area(0,1,1,2));
-//
-//        assertEquals(/*expected*/0, /*actual*/ 1,"Reason");
-//    }
+    @Test
+    void testOverlappingLightToggling() {
+        LightMatrix.Area area = new LightMatrix.Area(0,0,1,1);
+
+        //2      0 0 0
+        //1      0 0 0
+        //0      0 0 0
+        //Y^/x>  0 1 2
+
+        testee.toggle(area);
+
+        //2  0 0 0
+        //1  1 1 0
+        //0  1 1 0
+        //x  0 1 2
+
+        testee.toggle(new LightMatrix.Area(0,1,1,2));
+
+        //2  1 1 0
+        //1  0 0 0
+        //0  1 1 0
+        //x  0 1 2
+
+        assertTrue(testee.isLit(0,0), "0,0");
+        assertTrue(testee.isLit(1,0), "1,0");
+        assertFalse(testee.isLit(2,0), "2,0");
+        assertFalse(testee.isLit(0,1), "0,1");
+        assertFalse(testee.isLit(1,1), "1,1");
+        assertFalse(testee.isLit(2,1), "2,1");
+        assertTrue(testee.isLit(0,2), "0,2");
+        assertTrue(testee.isLit(1,2), "1,2");
+        assertFalse(testee.isLit(2,2), "2,2");
+    }
 
     @Test
     void testOneLightByPosition() {

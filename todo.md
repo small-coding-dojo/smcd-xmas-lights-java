@@ -1,30 +1,31 @@
-- After 2022-03-15:
-  - Clarify introduce a point
-  - Finish the test `testOverlappingLightToggling()` & Clarify path
-  - AndonCord like behaviour?
-    - Do we need discussion or are we on track?
-    - every ~21mins (3 drivers) 1-10 above 7 "andon cord" is pulled
-  - Replace for loop by assertArrayEquals?
-  - board for next time: https://miro.com/app/board/uXjVOFZFerI=/
-  - raise vote about continuing/abortion/pausing of kata
-  - change
+Retro 2022-03-22
+- Getting back on track required a lot of time
+- Imagining the coordinate system is really hard
+- Suggest to draw more - use miro: https://miro.com/app/board/uXjVOFZFerI=/
+- Using (0, 0) as left corner is painful
+- GitHub is down -> Have a replacement at hand!
 
-- FEEDBACK:
-  - good, little bit more prep wished
-  - wrote more code than a long time
-  - flow was there for the most time
-  - spontaneous break was good and helped getting on track again
+Status
+- Finished the test `testOverlappingLightToggling()` & Clarify path
+- Are we now confident enough to go to the next task?
+- Would we go to prod with this thing?
 
-
-- After 2022-03-10:
-  - Timebox of 5 minutes (option +2 min) -> decide where to go
-  - First sharing person is the driver - he decides who will be the navigator
-  - Driver / Navigator (rolling) (in the "mob sense")
-    -> Driver becomes next navigator
-  - Plan 5-10 min of Retro at the end
+OUR MODE
+- Timebox of 5 minutes (option +2 min) -> decide where to go
+- First sharing person is the driver - he decides who will be the navigator
+- Driver / Navigator (rolling) (in the "mob sense")
+  -> Driver becomes next navigator
+- Plan 5-10 min of Retro at the end
+- AndonCord like behaviour?
+  - Do we need discussion or are we on track?
+  - every ~21mins (3 drivers) 1-10 above 7 "andon cord" is pulled
+- raise vote about continuing/abortion/pausing of kata
   
-
-Other Ideas
+Next TODOs
+- create visible output - create a bitmap?
+- Replace for loop by assertArrayEquals?
+- Clarify introduce a point
+- Disucss about different RSA keys for different remotes
 - Find better names for our tests (in the future?)
 - Optimize structure of tests 
   - Group by content (on,off,toggle)
