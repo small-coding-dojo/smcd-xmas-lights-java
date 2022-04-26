@@ -20,6 +20,8 @@ public class LightMatrixTest
         testee = new LightMatrix();
     }
 
+    // TODO: Is valid -> But active Lights should be renamed, Name of Test Method as well
+    // TODO: Rename getActiveLights to getTotalBrightness
     @Test
     public void shouldActiveLightsReturnZero()
     {        
@@ -30,7 +32,7 @@ public class LightMatrixTest
     }
 
 
-
+    // TODO: Is valid -> Rename variables (and getActiveLights)
     @Test
     public void turnOneLightOnAndOffAgain() 
     {
@@ -45,7 +47,7 @@ public class LightMatrixTest
     }
 
 
-
+    // TODO: Rename variables (and getActiveLights)
     @Test
     public void testTurningOnIntersectingSectionsOfLightsResultsIn4ActiveLightsAndTurningOneOff () {
         testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
@@ -61,6 +63,7 @@ public class LightMatrixTest
 
     }
 
+    // TODO: Update to reflect changed expectations
     @Test
     public void testTurningOn3LightsThenToggle1000ResultsIn997ActiveLights() {
         testee.turnOn(new LightMatrix.Area(0,0,0, 0));
@@ -74,6 +77,7 @@ public class LightMatrixTest
         assertEquals(997, testee.getActiveLights());
     }
 
+    // TODO: Update to reflect changed expectations
     @Test
     public void testTurningOnSomeLightsThenToggleNotAllLightsResultsInPlausibleNumberOfLightsTurnedOn() {
         // Turn on three lights in row zero
@@ -94,7 +98,7 @@ public class LightMatrixTest
         assertEquals(998, testee.getActiveLights());
     }
 
-
+    // TODO: Rename variables (and getActiveLights)
     @Test
     public void testTurnOffActiveLightsTurnsOff() {
         LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
@@ -106,6 +110,7 @@ public class LightMatrixTest
         assertEquals(expectedLightCount, testee.getActiveLights(), "Completely lit matrix, turn off from 499,499 to 500,500 => 1_000_000 - 4");
     }
 
+    // TODO: Rename variables (and getActiveLights)
     @Test
     public void testTurnOffMixedLightsTurnsOff() {
         LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
@@ -120,6 +125,7 @@ public class LightMatrixTest
         assertEquals(expectedLightCount, testee.getActiveLights(), "Partially lit matrix, turn off from 499,499 to 500,500 => 500_000 - 2");
     }
 
+    // TODO: Rename test and the variables (and getActiveLights)
     @Test
     public void testTurnOffDeactivatedLightsLeavesOff(){
         LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
@@ -130,6 +136,7 @@ public class LightMatrixTest
         assertEquals(expectedLightCount, testee.getActiveLights(), "Unlit matrix, turn off from 499,499 to 500,500 => 0");
     }
 
+    // TODO: Update to reflect changed expectations
     @Test
     void testOverlappingLightToggling() {
         LightMatrix.Area area = new LightMatrix.Area(0,0,1,1);
@@ -164,6 +171,8 @@ public class LightMatrixTest
         assertFalse(testee.isLit(2,2), "2,2");
     }
 
+    // TODO: Update to reflect changed expectations
+    // TODO: rename and change return value of isLit, adapt assertion
     @Test
     void testOneLightByPosition() {
         LightMatrix.Area area = new LightMatrix.Area(0, 0, 0, 0);
@@ -172,6 +181,7 @@ public class LightMatrixTest
         assertTrue(testee.isLit(0,0));
     }
 
+    // TODO: rename and change return value of isLit, adapt assertion
     @Test
     void testAnotherLightByPosition() {
         LightMatrix.Area area = new LightMatrix.Area(1, 1, 2, 1);

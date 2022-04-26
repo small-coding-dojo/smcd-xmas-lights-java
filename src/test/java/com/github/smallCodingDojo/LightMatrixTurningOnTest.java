@@ -18,6 +18,7 @@ public class LightMatrixTurningOnTest {
         testee = new LightMatrix();
     }
 
+    // TODO: rename variables and getActiveLights
     @Test
     public void testTurningOnTwoLightsResultsInTwoActiveLights () {
         testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
@@ -29,6 +30,7 @@ public class LightMatrixTurningOnTest {
         assertEquals(expectedLights, actualLights);
     }
 
+    // TODO: rename variables and getActiveLights
     @Test
     public void testTurningOnASquareOfLightsResultsIn4ActiveLights () {
         testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
@@ -39,6 +41,7 @@ public class LightMatrixTurningOnTest {
         assertEquals(expectedLights, actualLights);
     }
 
+    // TODO: update to reflect changed expectations
     @Test
     public void testTurningOnIntersectingSectionsOfLightsResultsIn4ActiveLights () {
         testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
@@ -50,13 +53,14 @@ public class LightMatrixTurningOnTest {
         assertEquals(expectedLights, actualLights);
     }
 
+    // TODO: rename variables and getActiveLights
     @ParameterizedTest(name = "{2}")
     @MethodSource("provideTestAreas")
     public void fromUnlitMatrix(LightMatrix.Area area, int expectedLightCount, String theMessage) {
         testee.turnOn(area);
         assertEquals(expectedLightCount, testee.getActiveLights(), theMessage);
     }
-
+    
     private static Stream<Arguments> provideTestAreas() {
         return Stream.of(
                 Arguments.of(new LightMatrix.Area(0, 0, 0, 0), 1, "From 0,0 to 0,0 => One Light"),
