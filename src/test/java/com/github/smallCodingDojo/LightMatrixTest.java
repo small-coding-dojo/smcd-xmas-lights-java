@@ -3,11 +3,6 @@ package com.github.smallCodingDojo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,46 +16,39 @@ public class LightMatrixTest
         testee = new LightMatrix();
     }
 
-    // TODO: Is valid -> But active Lights should be renamed, Name of Test Method as well
-    // TODO: Rename getActiveLights to getTotalBrightness
     @Test
-    public void shouldActiveLightsReturnZero()
+    public void initialBrightness()
     {        
-        int expectedLights = 0;
-        int actualLights = testee.getActiveLights();
+        int expectedBrightness = 0;
+        int actualBrightness = testee.getTotalBrightness();
 
-        assertEquals(expectedLights, actualLights);
+        assertEquals(expectedBrightness, actualBrightness);
     }
 
-
-    // TODO: Is valid -> Rename variables (and getActiveLights)
     @Test
     public void turnOneLightOnAndOffAgain() 
     {
         testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
         testee.turnOff(new LightMatrix.Area(0, 0, 0, 0));
 
-        int expectedLights = 0;
-        int actualLights = testee.getActiveLights();
+        int expectedBrightness = 0;
+        int actualBrightness = testee.getTotalBrightness();
 
-        assertEquals(expectedLights, actualLights);
-
+        assertEquals(expectedBrightness, actualBrightness);
     }
 
-
-    // TODO: Rename variables (and getActiveLights)
     @Test
-    public void testTurningOnIntersectingSectionsOfLightsResultsIn4ActiveLightsAndTurningOneOff () {
+    public void turnOffLightInTurnedOnArea() {
         testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
 
-        int expectedLights = 4;
-        int actualLights = testee.getActiveLights();
+        int expectedBrightness = 4;
+        int actualBrightness = testee.getTotalBrightness();
 
-        assertEquals(expectedLights, actualLights);
+        assertEquals(expectedBrightness, actualBrightness);
 
         testee.turnOff(new LightMatrix.Area(0, 0, 0, 0));
 
-        assertEquals(3, testee.getActiveLights());
+        assertEquals(3, testee.getTotalBrightness());
 
     }
 
@@ -72,11 +60,11 @@ public class LightMatrixTest
         testee.turnOn(new LightMatrix.Area(2,0,2, 0));
         testee.turnOn(new LightMatrix.Area(999,0,999, 0));
 
-        assertEquals(3, testee.getActiveLights(), "precondition failed");
+        assertEquals(3, testee.getTotalBrightness(), "precondition failed");
 
         testee.toggle(new LightMatrix.Area(0,0,999, 0));
 
-        assertEquals(997, testee.getActiveLights());
+        assertEquals(997, testee.getTotalBrightness());
     }
 
     // TODO: Update to reflect changed expectations
@@ -92,51 +80,48 @@ public class LightMatrixTest
         testee.turnOn(new LightMatrix.Area(2,998,2, 998));
 
         // Check that four lights turned on
-        assertEquals(4, testee.getActiveLights(), "precondition failed");
+        assertEquals(4, testee.getTotalBrightness(), "precondition failed");
 
         // Toggle 1000 lights in row 0
         testee.toggle(new LightMatrix.Area(0,0,999, 0));
 
         // Check (1000 - 3) + 1 = 998 lights are turned on
-        assertEquals(998, testee.getActiveLights());
+        assertEquals(998, testee.getTotalBrightness());
     }
 
-    // TODO: Rename variables (and getActiveLights)
     @Test
     public void testTurnOffActiveLightsTurnsOff() {
         LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
-        int expectedLightCount = 1_000_000 - 4;
+        int expectedBrightness = 1_000_000 - 4;
 
         testee.turnOn(new LightMatrix.Area(0, 0, 999, 999));
         testee.turnOff(area);
 
-        assertEquals(expectedLightCount, testee.getActiveLights(), "Completely lit matrix, turn off from 499,499 to 500,500 => 1_000_000 - 4");
+        assertEquals(expectedBrightness, testee.getTotalBrightness(), "Completely lit matrix, turn off from 499,499 to 500,500 => 1_000_000 - 4");
     }
 
-    // TODO: Rename variables (and getActiveLights)
     @Test
     public void testTurnOffMixedLightsTurnsOff() {
         LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
-        int expectedLightCount = 500_000 - 2;
+        int expectedBrightness = 500_000 - 2;
 
         testee.turnOn(new LightMatrix.Area(0, 0, 999, 499));
 
-        assertEquals(500_000, testee.getActiveLights(), "Precondition not met.");
+        assertEquals(500_000, testee.getTotalBrightness(), "Precondition not met.");
 
         testee.turnOff(area);
 
-        assertEquals(expectedLightCount, testee.getActiveLights(), "Partially lit matrix, turn off from 499,499 to 500,500 => 500_000 - 2");
+        assertEquals(expectedBrightness, testee.getTotalBrightness(), "Partially lit matrix, turn off from 499,499 to 500,500 => 500_000 - 2");
     }
 
-    // TODO: Rename test and the variables (and getActiveLights)
     @Test
     public void testTurnOffDeactivatedLightsLeavesOff(){
         LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
-        int expectedLightCount = 0;
+        int expectedBrightness = 0;
 
         testee.turnOff(area);
 
-        assertEquals(expectedLightCount, testee.getActiveLights(), "Unlit matrix, turn off from 499,499 to 500,500 => 0");
+        assertEquals(expectedBrightness, testee.getTotalBrightness(), "Unlit matrix, turn off from 499,499 to 500,500 => 0");
     }
 
     // TODO: Update to reflect changed expectations

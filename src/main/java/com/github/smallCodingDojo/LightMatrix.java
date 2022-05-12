@@ -5,14 +5,14 @@ public class LightMatrix
 {
     private final int[][] brightnesses = new int[1000][1000];
 
-    public int getActiveLights() {
-        int activeLightCount = 0;
+    public int getTotalBrightness() {
+        int brightness = 0;
         for (int x = 0; x< 1000; x++) {
             for (int y = 0; y< 1000; y++) {
-                activeLightCount += isLit(x,y) ? 1 : 0;
+                brightness += brightnesses[x][y];
             }
         }
-        return activeLightCount;
+        return brightness;
     }
 
     public void turnOn(Area area) {

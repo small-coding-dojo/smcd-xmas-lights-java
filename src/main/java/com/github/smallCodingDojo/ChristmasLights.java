@@ -17,6 +17,6 @@ public class ChristmasLights {
         christmasLights.toggle(new LightMatrix.Area(720,196 , 897,994));
         christmasLights.toggle(new LightMatrix.Area(831,394, 904,860));
 
-        System.out.println(christmasLights.getActiveLights());
+        System.out.println(christmasLights.getTotalBrightness());
     }
 }

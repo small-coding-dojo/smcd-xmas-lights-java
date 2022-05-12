@@ -19,27 +19,25 @@ public class LightMatrixTurningOnTest {
         testee = new LightMatrix();
     }
 
-    // TODO: rename variables and getActiveLights
     @Test
-    public void testTurningOnTwoLightsResultsInTwoActiveLights () {
+    public void turnOnTwoLights() {
         testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
         testee.turnOn(new LightMatrix.Area(1, 1, 1, 1));
 
-        int expectedLights = 2;
-        int actualLights = testee.getActiveLights();
+        int expectedBrightness = 2;
+        int actualBrightness = testee.getTotalBrightness();
 
-        assertEquals(expectedLights, actualLights);
+        assertEquals(expectedBrightness, actualBrightness);
     }
 
-    // TODO: rename variables and getActiveLights
     @Test
-    public void testTurningOnASquareOfLightsResultsIn4ActiveLights () {
+    public void turnOnASquareOfLights() {
         testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
 
-        int expectedLights = 4;
-        int actualLights = testee.getActiveLights();
+        int expectedBrightness = 4;
+        int actualBrightness = testee.getTotalBrightness();
 
-        assertEquals(expectedLights, actualLights);
+        assertEquals(expectedBrightness, actualBrightness);
     }
 
     // TODO: update to reflect changed expectations
@@ -49,18 +47,17 @@ public class LightMatrixTurningOnTest {
         testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
         testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
 
-        int expectedLights = 4;
-        int actualLights = testee.getActiveLights();
+        int expectedBrightness = 4;
+        int actualBrightness = testee.getTotalBrightness();
 
-        assertEquals(expectedLights, actualLights);
+        assertEquals(expectedBrightness, actualBrightness);
     }
 
-    // TODO: rename variables and getActiveLights
     @ParameterizedTest(name = "{2}")
     @MethodSource("provideTestAreas")
-    public void fromUnlitMatrix(LightMatrix.Area area, int expectedLightCount, String theMessage) {
+    public void fromUnlitMatrix(LightMatrix.Area area, int expectedBrightness, String theMessage) {
         testee.turnOn(area);
-        assertEquals(expectedLightCount, testee.getActiveLights(), theMessage);
+        assertEquals(expectedBrightness, testee.getTotalBrightness(), theMessage);
     }
     
     private static Stream<Arguments> provideTestAreas() {
