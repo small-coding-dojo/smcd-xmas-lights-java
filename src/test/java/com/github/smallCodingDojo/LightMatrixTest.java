@@ -52,10 +52,8 @@ public class LightMatrixTest
 
     }
 
-    // TODO: Update to reflect changed expectations
     @Test
-    @Disabled("Update to reflect changed expectations")
-    public void testTurningOn3LightsThenToggle1000ResultsIn997ActiveLights() {
+    public void turnOn3LightsThenToggle1000() {
         testee.turnOn(new LightMatrix.Area(0,0,0, 0));
         testee.turnOn(new LightMatrix.Area(2,0,2, 0));
         testee.turnOn(new LightMatrix.Area(999,0,999, 0));
@@ -64,13 +62,11 @@ public class LightMatrixTest
 
         testee.toggle(new LightMatrix.Area(0,0,999, 0));
 
-        assertEquals(997, testee.getTotalBrightness());
+        assertEquals(2003, testee.getTotalBrightness());
     }
 
-    // TODO: Update to reflect changed expectations
     @Test
-    @Disabled("Update to reflect changed expectations")
-    public void testTurningOnSomeLightsThenToggleNotAllLightsResultsInPlausibleNumberOfLightsTurnedOn() {
+    public void turnOnSomeLightsThenToggleNotAllLights() {
         // Turn on three lights in row zero
         testee.turnOn(new LightMatrix.Area(0,0,0, 0));
         testee.turnOn(new LightMatrix.Area(2,0,2, 0));
@@ -85,8 +81,7 @@ public class LightMatrixTest
         // Toggle 1000 lights in row 0
         testee.toggle(new LightMatrix.Area(0,0,999, 0));
 
-        // Check (1000 - 3) + 1 = 998 lights are turned on
-        assertEquals(998, testee.getTotalBrightness());
+        assertEquals(2004, testee.getTotalBrightness());
     }
 
     @Test
@@ -124,10 +119,8 @@ public class LightMatrixTest
         assertEquals(expectedBrightness, testee.getTotalBrightness(), "Unlit matrix, turn off from 499,499 to 500,500 => 0");
     }
 
-    // TODO: Update to reflect changed expectations
     @Test
-    @Disabled("Update to reflect changed expectations")
-    void testOverlappingLightToggling() {
+    void toggleOverlappingAreas() {
         LightMatrix.Area area = new LightMatrix.Area(0,0,1,1);
 
         //2      0 0 0
@@ -138,41 +131,31 @@ public class LightMatrixTest
         testee.toggle(area);
 
         //2  0 0 0
-        //1  1 1 0
-        //0  1 1 0
+        //1  2 2 0
+        //0  2 2 0
         //x  0 1 2
 
         testee.toggle(new LightMatrix.Area(0,1,1,2));
 
-        //2  1 1 0
-        //1  0 0 0
-        //0  1 1 0
+        //2  2 2 0
+        //1  4 4 0
+        //0  2 2 0
         //x  0 1 2
 
         assertTrue(testee.isLit(0,0), "0,0");
         assertTrue(testee.isLit(1,0), "1,0");
         assertFalse(testee.isLit(2,0), "2,0");
-        assertFalse(testee.isLit(0,1), "0,1");
-        assertFalse(testee.isLit(1,1), "1,1");
+        assertTrue(testee.isLit(0,1), "0,1");
+        assertTrue(testee.isLit(1,1), "1,1");
         assertFalse(testee.isLit(2,1), "2,1");
         assertTrue(testee.isLit(0,2), "0,2");
         assertTrue(testee.isLit(1,2), "1,2");
         assertFalse(testee.isLit(2,2), "2,2");
+        assertEquals(16,testee.getTotalBrightness());
     }
 
     // TODO: rename and change return value of isLit, adapt assertion
     @Test
-    @Disabled("Discussion necessary")
-    void testOneLightByPosition() {
-        LightMatrix.Area area = new LightMatrix.Area(0, 0, 0, 0);
-
-        testee.turnOn(area);
-        assertTrue(testee.isLit(0,0));
-    }
-
-    // TODO: rename and change return value of isLit, adapt assertion
-    @Test
-    @Disabled("Discussion necessary")
     void testAnotherLightByPosition() {
         LightMatrix.Area area = new LightMatrix.Area(1, 1, 2, 1);
 
@@ -189,4 +172,15 @@ public class LightMatrixTest
             }
         }
     }
+
+    @Test
+    void turnOnTwoTimesAndTurnOff(){
+        LightMatrix.Area area = new LightMatrix.Area(0,0,0,0);
+        testee.turnOn(area);
+        testee.turnOn(area);
+
+        testee.turnOff(area);
+        assertEquals(1, testee.getTotalBrightness());
+    }
+
 }

@@ -16,21 +16,29 @@ public class LightMatrix
     }
 
     public void turnOn(Area area) {
-        applyCommandToArea(new Lighter(), area);
+        applyCommandToArea(new Brightener(), area);
     }
 
     public void turnOff(Area area) {
-        applyCommandToArea(new Extinguisher(), area);
+        applyCommandToArea(new Dimmer(), area);
     }
 
     public void toggle(Area area) {
-        applyCommandToArea(new LightToggler(), area);
+        applyCommandToArea(new BrightnessToggler(), area);
     }
 
     private void applyCommandToArea(LightStateChanger theCommand, Area area) {
         for(int x = area.getX1(); x<= area.getX2(); x++) {
             for(int y = area.getY1(); y<= area.getY2(); y++) {
                 brightnesses[x][y] = theCommand.execute(isLit(x,y) ) ? 1 : 0;
+            }
+        }
+    }
+
+    private void applyCommandToArea(LightBrightnessChanger theCommand, Area area) {
+        for(int x = area.getX1(); x<= area.getX2(); x++) {
+            for(int y = area.getY1(); y<= area.getY2(); y++) {
+                brightnesses[x][y] = theCommand.execute( brightnesses[x][y] );
             }
         }
     }
@@ -74,25 +82,23 @@ public class LightMatrix
         }
     }
 
-    private static class LightToggler implements LightStateChanger {
+    private static class BrightnessToggler implements LightBrightnessChanger {
         @Override
-        public boolean execute(boolean lightState) {
-            return !lightState;
+        public int execute(int brightness) {
+            return brightness +2;
         }
     }
 
-    private static class Lighter implements LightStateChanger {
+    private static class Brightener implements LightBrightnessChanger {
         @Override
-        public boolean execute(boolean lightState) {
-            return true;
+        public int execute(int brightness) {
+            return brightness+1;
         }
     }
 
-    private static class Extinguisher implements LightStateChanger {
+    private static class Dimmer implements LightBrightnessChanger {
         @Override
-        public boolean execute(boolean lightState) {
-            return false;
-        }
+        public int execute(int brightness) { return Math.max(0,brightness - 1);  }
     }
 
 }

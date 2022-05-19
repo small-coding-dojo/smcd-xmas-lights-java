@@ -40,14 +40,12 @@ public class LightMatrixTurningOnTest {
         assertEquals(expectedBrightness, actualBrightness);
     }
 
-    // TODO: update to reflect changed expectations
     @Test
-    @Disabled("update to reflect changed expectations")
-    public void testTurningOnIntersectingSectionsOfLightsResultsIn4ActiveLights () {
+    public void turningOnIntersectingSections () {
         testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
         testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
 
-        int expectedBrightness = 4;
+        int expectedBrightness = 5;
         int actualBrightness = testee.getTotalBrightness();
 
         assertEquals(expectedBrightness, actualBrightness);
