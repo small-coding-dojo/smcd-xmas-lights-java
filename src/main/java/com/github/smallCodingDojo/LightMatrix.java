@@ -27,14 +27,6 @@ public class LightMatrix
         applyCommandToArea(new BrightnessToggler(), area);
     }
 
-    private void applyCommandToArea(LightStateChanger theCommand, Area area) {
-        for(int x = area.getX1(); x<= area.getX2(); x++) {
-            for(int y = area.getY1(); y<= area.getY2(); y++) {
-                brightnesses[x][y] = theCommand.execute(isLit(x,y) ) ? 1 : 0;
-            }
-        }
-    }
-
     private void applyCommandToArea(LightBrightnessChanger theCommand, Area area) {
         for(int x = area.getX1(); x<= area.getX2(); x++) {
             for(int y = area.getY1(); y<= area.getY2(); y++) {
@@ -100,5 +92,4 @@ public class LightMatrix
         @Override
         public int execute(int brightness) { return Math.max(0,brightness - 1);  }
     }
-
 }
