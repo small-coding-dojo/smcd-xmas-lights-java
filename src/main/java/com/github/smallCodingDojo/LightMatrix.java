@@ -35,6 +35,7 @@ public class LightMatrix
         }
     }
 
+    //TODO: Discussion needed : Do we need to represent the new businesslogic? (Total brightness instead of bool)
     public boolean isLit(int x, int y) {
         return brightnesses[x][y] >0 ;
     }

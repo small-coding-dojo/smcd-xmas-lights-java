@@ -153,9 +153,8 @@ public class LightMatrixTest
         assertEquals(16,testee.getTotalBrightness());
     }
 
-    // TODO: rename and change return value of isLit, adapt assertion
     @Test
-    void testAnotherLightByPosition() {
+    void turnOnAreaAndAssertMatrixStatus() {
         LightMatrix.Area area = new LightMatrix.Area(1, 1, 2, 1);
 
         // X: 0 1 2
@@ -165,11 +164,9 @@ public class LightMatrixTest
         // 2  0 0 0
 
         testee.turnOn(area);
-        for (int x=area.getX1(); x< area.getX2();x++) {
-            for (int y=area.getY1(); y<area.getY2(); y++) {
-                assertTrue(testee.isLit(x,y));
-            }
-        }
+
+        assertTrue(testee.isLit(2,1), "2,1");
+        assertTrue(testee.isLit(1,1), "1,1");
     }
 
     @Test
@@ -181,5 +178,13 @@ public class LightMatrixTest
         testee.turnOff(area);
         assertEquals(1, testee.getTotalBrightness());
     }
+
+    @Test
+    void toggleOneMillionLights() {
+        LightMatrix.Area area = new LightMatrix.Area(0,0,999,999);
+        testee.toggle(area);
+        assertEquals(2_000_000, testee.getTotalBrightness());
+    }
+
 
 }
