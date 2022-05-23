@@ -1,18 +1,16 @@
 package com.github.smallCodingDojo;
 
 
+import java.util.Arrays;
+
 public class LightMatrix
 {
     private final int[][] brightnesses = new int[1000][1000];
 
     public int getTotalBrightness() {
-        int brightness = 0;
-        for (int x = 0; x< 1000; x++) {
-            for (int y = 0; y< 1000; y++) {
-                brightness += brightnesses[x][y];
-            }
-        }
-        return brightness;
+        return Arrays.stream(brightnesses)
+                .flatMapToInt(Arrays::stream)
+                .sum();
     }
 
     public void turnOn(Area area) {
@@ -37,7 +35,7 @@ public class LightMatrix
 
     //TODO: Discussion needed : Do we need to represent the new businesslogic? (Total brightness instead of bool)
     public boolean isLit(int x, int y) {
-        return brightnesses[x][y] >0 ;
+        return brightnesses[x][y] > 0 ;
     }
 
     static class Area {
