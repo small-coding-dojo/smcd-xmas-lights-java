@@ -1,4 +1,4 @@
-package com.github.smallCodingDojo;
+package com.github.small_coding_dojo.xmas_lights;
 
 public class ChristmasLights {
     public static void main(String[] args) {
@@ -17,6 +17,11 @@ public class ChristmasLights {
         christmasLights.toggle(new LightMatrix.Area(720,196 , 897,994));
         christmasLights.toggle(new LightMatrix.Area(831,394, 904,860));
 
+        renderOutput(christmasLights);
+    }
+
+    @SuppressWarnings("java:S106") // Suppress sonar warning for logging via system.out.println
+    private static void renderOutput(LightMatrix christmasLights) {
         System.out.println(christmasLights.getTotalBrightness());
     }
 }

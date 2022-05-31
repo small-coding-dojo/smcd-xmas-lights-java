@@ -1,11 +1,11 @@
-package com.github.smallCodingDojo;
+package com.github.small_coding_dojo.xmas_lights;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LightMatrixTest
+class LightMatrixTest
 {
 
     private LightMatrix testee;
@@ -16,8 +16,8 @@ public class LightMatrixTest
     }
 
     @Test
-    public void initialBrightness()
-    {        
+    void initialBrightness()
+    {
         int expectedBrightness = 0;
         int actualBrightness = testee.getTotalBrightness();
 
@@ -25,7 +25,7 @@ public class LightMatrixTest
     }
 
     @Test
-    public void turnOneLightOnAndOffAgain() 
+    void turnOneLightOnAndOffAgain()
     {
         testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
         testee.turnOff(new LightMatrix.Area(0, 0, 0, 0));
@@ -37,7 +37,7 @@ public class LightMatrixTest
     }
 
     @Test
-    public void turnOffLightInTurnedOnArea() {
+    void turnOffLightInTurnedOnArea() {
         testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
 
         int expectedBrightness = 4;
@@ -52,7 +52,7 @@ public class LightMatrixTest
     }
 
     @Test
-    public void turnOn3LightsThenToggle1000() {
+    void turnOn3LightsThenToggle1000() {
         testee.turnOn(new LightMatrix.Area(0,0,0, 0));
         testee.turnOn(new LightMatrix.Area(2,0,2, 0));
         testee.turnOn(new LightMatrix.Area(999,0,999, 0));
@@ -65,7 +65,7 @@ public class LightMatrixTest
     }
 
     @Test
-    public void turnOnSomeLightsThenToggleNotAllLights() {
+    void turnOnSomeLightsThenToggleNotAllLights() {
         // Turn on three lights in row zero
         testee.turnOn(new LightMatrix.Area(0,0,0, 0));
         testee.turnOn(new LightMatrix.Area(2,0,2, 0));
@@ -84,7 +84,7 @@ public class LightMatrixTest
     }
 
     @Test
-    public void testTurnOffActiveLightsTurnsOff() {
+    void testTurnOffActiveLightsTurnsOff() {
         LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
         int expectedBrightness = 1_000_000 - 4;
 
@@ -95,7 +95,7 @@ public class LightMatrixTest
     }
 
     @Test
-    public void testTurnOffMixedLightsTurnsOff() {
+    void testTurnOffMixedLightsTurnsOff() {
         LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
         int expectedBrightness = 500_000 - 2;
 
@@ -109,7 +109,7 @@ public class LightMatrixTest
     }
 
     @Test
-    public void testTurnOffDeactivatedLightsLeavesOff(){
+    void testTurnOffDeactivatedLightsLeavesOff(){
         LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
         int expectedBrightness = 0;
 

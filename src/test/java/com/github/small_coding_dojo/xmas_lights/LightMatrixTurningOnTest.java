@@ -1,4 +1,4 @@
-package com.github.smallCodingDojo;
+package com.github.small_coding_dojo.xmas_lights;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LightMatrixTurningOnTest {
+class LightMatrixTurningOnTest {
     private LightMatrix testee;
 
     @BeforeEach
@@ -19,7 +19,7 @@ public class LightMatrixTurningOnTest {
     }
 
     @Test
-    public void turnOnTwoLights() {
+    void turnOnTwoLights() {
         testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
         testee.turnOn(new LightMatrix.Area(1, 1, 1, 1));
 
@@ -30,7 +30,7 @@ public class LightMatrixTurningOnTest {
     }
 
     @Test
-    public void turnOnASquareOfLights() {
+    void turnOnASquareOfLights() {
         testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
 
         int expectedBrightness = 4;
@@ -40,7 +40,7 @@ public class LightMatrixTurningOnTest {
     }
 
     @Test
-    public void turningOnIntersectingSections () {
+    void turningOnIntersectingSections () {
         testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
         testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
 
@@ -52,7 +52,7 @@ public class LightMatrixTurningOnTest {
 
     @ParameterizedTest(name = "{2}")
     @MethodSource("provideTestAreas")
-    public void fromUnlitMatrix(LightMatrix.Area area, int expectedBrightness, String theMessage) {
+    void fromUnlitMatrix(LightMatrix.Area area, int expectedBrightness, String theMessage) {
         testee.turnOn(area);
         assertEquals(expectedBrightness, testee.getTotalBrightness(), theMessage);
     }
