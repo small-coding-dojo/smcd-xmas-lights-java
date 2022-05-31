@@ -3,8 +3,7 @@ package com.github.small_coding_dojo.xmas_lights;
 
 import java.util.Arrays;
 
-public class LightMatrix
-{
+public class LightMatrix {
     private final int[][] brightnesses = new int[1000][1000];
 
     public int getTotalBrightness() {
@@ -26,15 +25,15 @@ public class LightMatrix
     }
 
     private void applyCommandToArea(LightBrightnessChanger theCommand, Area area) {
-        for(int x = area.getX1(); x<= area.getX2(); x++) {
-            for(int y = area.getY1(); y<= area.getY2(); y++) {
-                brightnesses[x][y] = theCommand.execute( brightnesses[x][y] );
+        for (int x = area.getX1(); x <= area.getX2(); x++) {
+            for (int y = area.getY1(); y <= area.getY2(); y++) {
+                brightnesses[x][y] = theCommand.execute(brightnesses[x][y]);
             }
         }
     }
 
     public boolean isLit(int x, int y) {
-        return brightnesses[x][y] > 0 ;
+        return brightnesses[x][y] > 0;
     }
 
     static class Area {
@@ -52,7 +51,7 @@ public class LightMatrix
 
         @Override
         public String toString() {
-            return "("+this.x1+","+this.y1+")";
+            return "(" + this.x1 + "," + this.y1 + ")";
         }
 
         public int getX1() {
@@ -75,19 +74,21 @@ public class LightMatrix
     private static class BrightnessToggler implements LightBrightnessChanger {
         @Override
         public int execute(int brightness) {
-            return brightness +2;
+            return brightness + 2;
         }
     }
 
     private static class Brightener implements LightBrightnessChanger {
         @Override
         public int execute(int brightness) {
-            return brightness+1;
+            return brightness + 1;
         }
     }
 
     private static class Dimmer implements LightBrightnessChanger {
         @Override
-        public int execute(int brightness) { return Math.max(0,brightness - 1);  }
+        public int execute(int brightness) {
+            return Math.max(0, brightness - 1);
+        }
     }
 }

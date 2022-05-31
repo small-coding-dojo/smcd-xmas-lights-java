@@ -5,19 +5,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LightMatrixTest
-{
+class LightMatrixTest {
 
     private LightMatrix testee;
 
     @BeforeEach
-    public void initializeLightMatrix(){
+    public void initializeLightMatrix() {
         testee = new LightMatrix();
     }
 
     @Test
-    void initialBrightness()
-    {
+    void initialBrightness() {
         int expectedBrightness = 0;
         int actualBrightness = testee.getTotalBrightness();
 
@@ -25,8 +23,7 @@ class LightMatrixTest
     }
 
     @Test
-    void turnOneLightOnAndOffAgain()
-    {
+    void turnOneLightOnAndOffAgain() {
         testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
         testee.turnOff(new LightMatrix.Area(0, 0, 0, 0));
 
@@ -53,13 +50,13 @@ class LightMatrixTest
 
     @Test
     void turnOn3LightsThenToggle1000() {
-        testee.turnOn(new LightMatrix.Area(0,0,0, 0));
-        testee.turnOn(new LightMatrix.Area(2,0,2, 0));
-        testee.turnOn(new LightMatrix.Area(999,0,999, 0));
+        testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
+        testee.turnOn(new LightMatrix.Area(2, 0, 2, 0));
+        testee.turnOn(new LightMatrix.Area(999, 0, 999, 0));
 
         assertEquals(3, testee.getTotalBrightness(), "precondition failed");
 
-        testee.toggle(new LightMatrix.Area(0,0,999, 0));
+        testee.toggle(new LightMatrix.Area(0, 0, 999, 0));
 
         assertEquals(2003, testee.getTotalBrightness());
     }
@@ -67,18 +64,18 @@ class LightMatrixTest
     @Test
     void turnOnSomeLightsThenToggleNotAllLights() {
         // Turn on three lights in row zero
-        testee.turnOn(new LightMatrix.Area(0,0,0, 0));
-        testee.turnOn(new LightMatrix.Area(2,0,2, 0));
-        testee.turnOn(new LightMatrix.Area(999,0,999, 0));
+        testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
+        testee.turnOn(new LightMatrix.Area(2, 0, 2, 0));
+        testee.turnOn(new LightMatrix.Area(999, 0, 999, 0));
 
         // Turn on one light in row two
-        testee.turnOn(new LightMatrix.Area(2,998,2, 998));
+        testee.turnOn(new LightMatrix.Area(2, 998, 2, 998));
 
         // Check that four lights turned on
         assertEquals(4, testee.getTotalBrightness(), "precondition failed");
 
         // Toggle 1000 lights in row 0
-        testee.toggle(new LightMatrix.Area(0,0,999, 0));
+        testee.toggle(new LightMatrix.Area(0, 0, 999, 0));
 
         assertEquals(2004, testee.getTotalBrightness());
     }
@@ -109,7 +106,7 @@ class LightMatrixTest
     }
 
     @Test
-    void testTurnOffDeactivatedLightsLeavesOff(){
+    void testTurnOffDeactivatedLightsLeavesOff() {
         LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
         int expectedBrightness = 0;
 
@@ -120,7 +117,7 @@ class LightMatrixTest
 
     @Test
     void toggleOverlappingAreas() {
-        LightMatrix.Area area = new LightMatrix.Area(0,0,1,1);
+        LightMatrix.Area area = new LightMatrix.Area(0, 0, 1, 1);
 
         //2      0 0 0
         //1      0 0 0
@@ -134,23 +131,23 @@ class LightMatrixTest
         //0  2 2 0
         //x  0 1 2
 
-        testee.toggle(new LightMatrix.Area(0,1,1,2));
+        testee.toggle(new LightMatrix.Area(0, 1, 1, 2));
 
         //2  2 2 0
         //1  4 4 0
         //0  2 2 0
         //x  0 1 2
 
-        assertTrue(testee.isLit(0,0), "0,0");
-        assertTrue(testee.isLit(1,0), "1,0");
-        assertFalse(testee.isLit(2,0), "2,0");
-        assertTrue(testee.isLit(0,1), "0,1");
-        assertTrue(testee.isLit(1,1), "1,1");
-        assertFalse(testee.isLit(2,1), "2,1");
-        assertTrue(testee.isLit(0,2), "0,2");
-        assertTrue(testee.isLit(1,2), "1,2");
-        assertFalse(testee.isLit(2,2), "2,2");
-        assertEquals(16,testee.getTotalBrightness());
+        assertTrue(testee.isLit(0, 0), "0,0");
+        assertTrue(testee.isLit(1, 0), "1,0");
+        assertFalse(testee.isLit(2, 0), "2,0");
+        assertTrue(testee.isLit(0, 1), "0,1");
+        assertTrue(testee.isLit(1, 1), "1,1");
+        assertFalse(testee.isLit(2, 1), "2,1");
+        assertTrue(testee.isLit(0, 2), "0,2");
+        assertTrue(testee.isLit(1, 2), "1,2");
+        assertFalse(testee.isLit(2, 2), "2,2");
+        assertEquals(16, testee.getTotalBrightness());
     }
 
     @Test
@@ -165,13 +162,13 @@ class LightMatrixTest
 
         testee.turnOn(area);
 
-        assertTrue(testee.isLit(2,1), "2,1");
-        assertTrue(testee.isLit(1,1), "1,1");
+        assertTrue(testee.isLit(2, 1), "2,1");
+        assertTrue(testee.isLit(1, 1), "1,1");
     }
 
     @Test
-    void turnOnTwoTimesAndTurnOff(){
-        LightMatrix.Area area = new LightMatrix.Area(0,0,0,0);
+    void turnOnTwoTimesAndTurnOff() {
+        LightMatrix.Area area = new LightMatrix.Area(0, 0, 0, 0);
         testee.turnOn(area);
         testee.turnOn(area);
 
@@ -181,7 +178,7 @@ class LightMatrixTest
 
     @Test
     void toggleOneMillionLights() {
-        LightMatrix.Area area = new LightMatrix.Area(0,0,999,999);
+        LightMatrix.Area area = new LightMatrix.Area(0, 0, 999, 999);
         testee.toggle(area);
         assertEquals(2_000_000, testee.getTotalBrightness());
     }

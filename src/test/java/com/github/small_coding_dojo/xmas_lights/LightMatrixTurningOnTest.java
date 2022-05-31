@@ -13,8 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class LightMatrixTurningOnTest {
     private LightMatrix testee;
 
+    private static Stream<Arguments> provideTestAreas() {
+        return Stream.of(
+                Arguments.of(new LightMatrix.Area(0, 0, 0, 0), 1, "From 0,0 to 0,0 => One Light"),
+                Arguments.of(new LightMatrix.Area(0, 0, 999, 999), 1_000_000, "From 0,0 to 999,999 => One Million Lights"),
+                Arguments.of(new LightMatrix.Area(0, 15, 0, 16), 2, "From 0,15 to 0,16 => Two Lights"),
+                Arguments.of(new LightMatrix.Area(0, 0, 0, 1), 2, "From 0,0 to 0,1 => Two Lights")
+        );
+    }
+
     @BeforeEach
-    public void initializeLightMatrix(){
+    public void initializeLightMatrix() {
         testee = new LightMatrix();
     }
 
@@ -40,7 +49,7 @@ class LightMatrixTurningOnTest {
     }
 
     @Test
-    void turningOnIntersectingSections () {
+    void turningOnIntersectingSections() {
         testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
         testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
 
@@ -55,14 +64,5 @@ class LightMatrixTurningOnTest {
     void fromUnlitMatrix(LightMatrix.Area area, int expectedBrightness, String theMessage) {
         testee.turnOn(area);
         assertEquals(expectedBrightness, testee.getTotalBrightness(), theMessage);
-    }
-    
-    private static Stream<Arguments> provideTestAreas() {
-        return Stream.of(
-                Arguments.of(new LightMatrix.Area(0, 0, 0, 0), 1, "From 0,0 to 0,0 => One Light"),
-                Arguments.of(new LightMatrix.Area(0, 0, 999, 999), 1_000_000, "From 0,0 to 999,999 => One Million Lights"),
-                Arguments.of(new LightMatrix.Area(0, 15, 0, 16), 2, "From 0,15 to 0,16 => Two Lights"),
-                Arguments.of(new LightMatrix.Area(0, 0, 0, 1), 2, "From 0,0 to 0,1 => Two Lights")
-        );
     }
 }
