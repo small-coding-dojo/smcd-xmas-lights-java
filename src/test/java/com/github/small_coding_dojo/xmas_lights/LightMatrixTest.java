@@ -24,8 +24,8 @@ class LightMatrixTest {
 
     @Test
     void turnOneLightOnAndOffAgain() {
-        testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
-        testee.turnOff(new LightMatrix.Area(0, 0, 0, 0));
+        testee.turnOn(new Area(0, 0, 0, 0));
+        testee.turnOff(new Area(0, 0, 0, 0));
 
         int expectedBrightness = 0;
         int actualBrightness = testee.getTotalBrightness();
@@ -35,14 +35,14 @@ class LightMatrixTest {
 
     @Test
     void turnOffLightInTurnedOnArea() {
-        testee.turnOn(new LightMatrix.Area(0, 0, 1, 1));
+        testee.turnOn(new Area(0, 0, 1, 1));
 
         int expectedBrightness = 4;
         int actualBrightness = testee.getTotalBrightness();
 
         assertEquals(expectedBrightness, actualBrightness);
 
-        testee.turnOff(new LightMatrix.Area(0, 0, 0, 0));
+        testee.turnOff(new Area(0, 0, 0, 0));
 
         assertEquals(3, testee.getTotalBrightness());
 
@@ -50,13 +50,13 @@ class LightMatrixTest {
 
     @Test
     void turnOn3LightsThenToggle1000() {
-        testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
-        testee.turnOn(new LightMatrix.Area(2, 0, 2, 0));
-        testee.turnOn(new LightMatrix.Area(999, 0, 999, 0));
+        testee.turnOn(new Area(0, 0, 0, 0));
+        testee.turnOn(new Area(2, 0, 2, 0));
+        testee.turnOn(new Area(999, 0, 999, 0));
 
         assertEquals(3, testee.getTotalBrightness(), "precondition failed");
 
-        testee.toggle(new LightMatrix.Area(0, 0, 999, 0));
+        testee.toggle(new Area(0, 0, 999, 0));
 
         assertEquals(2003, testee.getTotalBrightness());
     }
@@ -64,28 +64,28 @@ class LightMatrixTest {
     @Test
     void turnOnSomeLightsThenToggleNotAllLights() {
         // Turn on three lights in row zero
-        testee.turnOn(new LightMatrix.Area(0, 0, 0, 0));
-        testee.turnOn(new LightMatrix.Area(2, 0, 2, 0));
-        testee.turnOn(new LightMatrix.Area(999, 0, 999, 0));
+        testee.turnOn(new Area(0, 0, 0, 0));
+        testee.turnOn(new Area(2, 0, 2, 0));
+        testee.turnOn(new Area(999, 0, 999, 0));
 
         // Turn on one light in row two
-        testee.turnOn(new LightMatrix.Area(2, 998, 2, 998));
+        testee.turnOn(new Area(2, 998, 2, 998));
 
         // Check that four lights turned on
         assertEquals(4, testee.getTotalBrightness(), "precondition failed");
 
         // Toggle 1000 lights in row 0
-        testee.toggle(new LightMatrix.Area(0, 0, 999, 0));
+        testee.toggle(new Area(0, 0, 999, 0));
 
         assertEquals(2004, testee.getTotalBrightness());
     }
 
     @Test
     void testTurnOffActiveLightsTurnsOff() {
-        LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
+        Area area = new Area(499, 499, 500, 500);
         int expectedBrightness = 1_000_000 - 4;
 
-        testee.turnOn(new LightMatrix.Area(0, 0, 999, 999));
+        testee.turnOn(new Area(0, 0, 999, 999));
         testee.turnOff(area);
 
         assertEquals(expectedBrightness, testee.getTotalBrightness(), "Completely lit matrix, turn off from 499,499 to 500,500 => 1_000_000 - 4");
@@ -93,10 +93,10 @@ class LightMatrixTest {
 
     @Test
     void testTurnOffMixedLightsTurnsOff() {
-        LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
+        Area area = new Area(499, 499, 500, 500);
         int expectedBrightness = 500_000 - 2;
 
-        testee.turnOn(new LightMatrix.Area(0, 0, 999, 499));
+        testee.turnOn(new Area(0, 0, 999, 499));
 
         assertEquals(500_000, testee.getTotalBrightness(), "Precondition not met.");
 
@@ -107,7 +107,7 @@ class LightMatrixTest {
 
     @Test
     void testTurnOffDeactivatedLightsLeavesOff() {
-        LightMatrix.Area area = new LightMatrix.Area(499, 499, 500, 500);
+        Area area = new Area(499, 499, 500, 500);
         int expectedBrightness = 0;
 
         testee.turnOff(area);
@@ -117,7 +117,7 @@ class LightMatrixTest {
 
     @Test
     void toggleOverlappingAreas() {
-        LightMatrix.Area area = new LightMatrix.Area(0, 0, 1, 1);
+        Area area = new Area(0, 0, 1, 1);
 
         //2      0 0 0
         //1      0 0 0
@@ -131,7 +131,7 @@ class LightMatrixTest {
         //0  2 2 0
         //x  0 1 2
 
-        testee.toggle(new LightMatrix.Area(0, 1, 1, 2));
+        testee.toggle(new Area(0, 1, 1, 2));
 
         //2  2 2 0
         //1  4 4 0
@@ -152,7 +152,7 @@ class LightMatrixTest {
 
     @Test
     void turnOnAreaAndAssertMatrixStatus() {
-        LightMatrix.Area area = new LightMatrix.Area(1, 1, 2, 1);
+        Area area = new Area(1, 1, 2, 1);
 
         // X: 0 1 2
         // Y
@@ -168,7 +168,7 @@ class LightMatrixTest {
 
     @Test
     void turnOnTwoTimesAndTurnOff() {
-        LightMatrix.Area area = new LightMatrix.Area(0, 0, 0, 0);
+        Area area = new Area(0, 0, 0, 0);
         testee.turnOn(area);
         testee.turnOn(area);
 
@@ -178,7 +178,7 @@ class LightMatrixTest {
 
     @Test
     void toggleOneMillionLights() {
-        LightMatrix.Area area = new LightMatrix.Area(0, 0, 999, 999);
+        Area area = new Area(0, 0, 999, 999);
         testee.toggle(area);
         assertEquals(2_000_000, testee.getTotalBrightness());
     }
